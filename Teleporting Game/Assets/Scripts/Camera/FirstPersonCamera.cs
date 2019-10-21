@@ -41,6 +41,7 @@ public class FirstPersonCamera : MonoBehaviour
         m_YRotation += Input.GetAxis(XAxisName) * RotationSpeed * Time.deltaTime;
 
         m_XRotation = Mathf.Clamp(m_XRotation, XClampMinMax.x, XClampMinMax.y);
+       
 
         CurrentYRotation = Mathf.SmoothDamp(CurrentYRotation, m_YRotation, ref m_YRotationV, LookSmoothDamp);
         CurrentXRotation = Mathf.SmoothDamp(CurrentXRotation, m_XRotation, ref m_XRotationV, LookSmoothDamp);
@@ -57,6 +58,13 @@ public class FirstPersonCamera : MonoBehaviour
         }
         transform.rotation = Quaternion.Euler(eulerChanges.x, eulerChanges.y, eulerChanges.z);
     }
+
+    public void SetYRotation(float y)
+    {
+        m_YRotation = y;
+    }
+
+
 
     void Start()
     {

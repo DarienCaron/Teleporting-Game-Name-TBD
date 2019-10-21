@@ -118,6 +118,12 @@ public class PlayerController : MonoBehaviour
 
 
 
+    public void ForceBodyRotation(Vector3 dir)
+    {
+        var q = Quaternion.LookRotation(dir, Vector3.up);
+       
+        PlayerEyes.SetYRotation(q.eulerAngles.y);
+    }
 
     private void RotatePlayer()
     {

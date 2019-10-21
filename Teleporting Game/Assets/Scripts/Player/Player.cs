@@ -40,6 +40,10 @@ public class Player : MonoBehaviour
                     var Teleporter = hit.collider.GetComponent<TestTele>();
 
 
+                    
+                    PlayerBody.ForceBodyRotation(hit.normal);
+                    transform.position = hit.point;
+
 
 
                 }
