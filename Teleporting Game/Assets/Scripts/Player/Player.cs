@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     public FirstPersonCamera PlayerEyes;
     public PlayerController PlayerBody;
 
+    public TeleportController PlayerTeleport;
+
 
     void Start()
     {
@@ -17,6 +19,11 @@ public class Player : MonoBehaviour
         }
         if (!PlayerBody)
             PlayerBody = GetComponent<PlayerController>();
+
+        if(!PlayerTeleport)
+        {
+            PlayerTeleport = GetComponent<TeleportController>();
+        }
     }
 
     // Update is called once per frame
@@ -25,31 +32,16 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Ray ray = PlayerEyes.GetCenterCameraRay();
 
-            Debug.DrawRay(ray.origin, ray.direction * 50, Color.black);
+            PlayerTeleport.FindTeleporter();
 
-
-
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit))
+        }
+        if(Input.GetKeyUp(KeyCode.Space))
+        {
+            if(PlayerTeleport.Teleporter != null)
             {
-                if (hit.collider.GetComponent<TestTele>())
-                {
-                    var Teleporter = hit.collider.GetComponent<TestTele>();
-
-
-                    
-                    PlayerBody.ForceBodyRotation(hit.normal);
-                    transform.position = hit.point;
-
-
-
-                }
+                PlayerTeleport.BeginTeleport();
             }
-
-
         }
     }
 
