@@ -2,17 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputManager : MonoBehaviour
+public class InputManager
 {
-    // Start is called before the first frame update
-    void Start()
+
+
+    public bool GetTeleportDown()
     {
-        
+        return Input.GetKeyDown(KeyCode.Space);
+    }
+    public bool GetTeleportUp()
+    {
+        return Input.GetKeyUp(KeyCode.Space);
     }
 
-    // Update is called once per frame
-    void Update()
+
+    public Vector3 GetMoveDir()
     {
-        
+        return new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
     }
 }

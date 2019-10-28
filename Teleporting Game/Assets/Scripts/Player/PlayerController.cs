@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
 
         UpdateGroundInfo();
 
-        Vector3 localMoveDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        Vector3 localMoveDir = Controller.GetMoveDir();
         localMoveDir.Normalize();
 
 
@@ -282,13 +282,13 @@ public class PlayerController : MonoBehaviour
             {
                 moveAccel *= MovementAccelerationSpeed * RunSpeedModifier;
                 localVelocity = Vector3.ClampMagnitude(localVelocity, MaxRunSpeed);
-                Debug.Log("Running");
+                
             }
             else
             {
                 moveAccel *= MovementAccelerationSpeed;
                 localVelocity = Vector3.ClampMagnitude(localVelocity, MaxWalkSpeed);
-                Debug.Log("Walking");
+                
             }
 
             localVelocity += moveAccel * Time.fixedDeltaTime;
@@ -374,7 +374,7 @@ public class PlayerController : MonoBehaviour
         Disable
     }
 
-
+    public InputManager Controller { get; set; }
 
 
 

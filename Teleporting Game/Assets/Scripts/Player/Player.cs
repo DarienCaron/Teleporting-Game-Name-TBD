@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
 
     public TeleportController PlayerTeleport;
 
+    public InputManager InputController;
+
 
     void Start()
     {
@@ -20,23 +22,33 @@ public class Player : MonoBehaviour
         if (!PlayerBody)
             PlayerBody = GetComponent<PlayerController>();
 
+        InputController = new InputManager();
+
+        PlayerBody.Controller = InputController;
+
         if(!PlayerTeleport)
         {
             PlayerTeleport = GetComponent<TeleportController>();
         }
+        m_TeleportTimer = new Timer();
+        m_TeleportTimer.Init(2.0f);
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
+        m_TeleportTimer.Update();
 
+
+
+        if (InputController.GetTeleportDown() && m_TeleportTimer.HasTimerEnded())
+        {
+            m_TeleportTimer.Start();
             PlayerTeleport.FindTeleporter();
 
         }
-        if(Input.GetKeyUp(KeyCode.Space))
+        if(InputController.GetTeleportUp())
         {
             if(PlayerTeleport.Teleporter != null)
             {
@@ -44,6 +56,9 @@ public class Player : MonoBehaviour
             }
         }
     }
+
+
+    private Timer m_TeleportTimer;
 
 
 
