@@ -25,3 +25,10 @@ public enum TeleportState
     Ended,
     Waiting
 }
+
+public enum TeleportType
+{
+    Normal,
+    Sticky,
+    Launch
+}

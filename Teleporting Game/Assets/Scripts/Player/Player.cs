@@ -55,6 +55,11 @@ public class Player : MonoBehaviour
                 PlayerTeleport.BeginTeleport();
             }
         }
+
+        if(Input.GetKeyDown(KeyCode.G))
+        {
+            PlayerTeleport.SpawnTeleporter();
+        }
     }
 
 

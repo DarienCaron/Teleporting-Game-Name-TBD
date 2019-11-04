@@ -6,6 +6,7 @@ public class TeleportController : MonoBehaviour
 {
 
     public Player ControllingPlayer;
+    public TeleporterDictionary Teleporters;
 
 
     private void Start()
@@ -14,6 +15,7 @@ public class TeleportController : MonoBehaviour
         {
             ControllingPlayer = GetComponent<Player>();
         }
+        CurrentTeleporterType = TeleportType.Normal;
     }
 
     private void Update()
@@ -28,6 +30,23 @@ public class TeleportController : MonoBehaviour
 
             
         }
+    }
+
+
+    public void SpawnTeleporter()
+    {
+      
+
+
+        Ray ray = ControllingPlayer.PlayerEyes.GetCenterCameraRay();
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
+        {
+            GameObject obj = Instantiate(Teleporters[CurrentTeleporterType]);
+            obj.transform.position = hit.point;
+        }
+
+       
     }
 
     public void FindTeleporter()
@@ -74,6 +93,7 @@ public class TeleportController : MonoBehaviour
 
     private RaycastHit m_LastHit;
 
+    public TeleportType CurrentTeleporterType { get; private set; }
 
 
 }
