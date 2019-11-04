@@ -60,6 +60,15 @@ public class Player : MonoBehaviour
         {
             PlayerTeleport.SpawnTeleporter();
         }
+        var d = Input.GetAxis("Mouse ScrollWheel");
+        if (d > 0f)
+        {
+            PlayerTeleport.ChangeTeleportType(true);
+        }
+        else if (d < 0f)
+        {
+            PlayerTeleport.ChangeTeleportType(false);
+        }
     }
 
 

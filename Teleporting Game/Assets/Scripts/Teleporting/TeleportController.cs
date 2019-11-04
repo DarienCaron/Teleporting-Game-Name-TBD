@@ -27,8 +27,23 @@ public class TeleportController : MonoBehaviour
                 Teleporter.ResetTeleporter();
                 Teleporter = null;
             }
-
+            Debug.Log(sizeof(TeleportType));
             
+        }
+    }
+
+    public void ChangeTeleportType(bool up)
+    {
+        switch(up)
+        {
+            case true:
+                CurrentTeleporterType = TeleportType.Launch;
+              
+                break;
+            case false:
+                CurrentTeleporterType = TeleportType.Normal;
+                break;
+
         }
     }
 
