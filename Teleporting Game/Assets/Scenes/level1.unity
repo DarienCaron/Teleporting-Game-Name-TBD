@@ -527,7 +527,6 @@ GameObject:
   m_Component:
   - component: {fileID: 847473248}
   - component: {fileID: 847473247}
-  - component: {fileID: 847473249}
   m_Layer: 0
   m_Name: Database
   m_TagString: Untagged
@@ -544,11 +543,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 847473246}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b959611630ab4b41b23c357292ea557, type: 3}
+  m_Script: {fileID: 11500000, guid: b0302876b1346f742858b80eec9b9af5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  URL: http://localhost/testdb/userSelect.php
-  UserData: []
+  DatabaseName: LevelDB
+  Selector: {fileID: 11400000, guid: b19c4d062c2b07b4198c64b52dded8d7, type: 2}
 --- !u!4 &847473248
 Transform:
   m_ObjectHideFlags: 0
@@ -563,18 +562,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &847473249
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 847473246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dee1284801c07c44cb5c6a08e411035b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &863988034
 GameObject:
   m_ObjectHideFlags: 0
@@ -948,7 +935,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
