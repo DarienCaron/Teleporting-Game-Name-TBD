@@ -64,6 +64,10 @@ public class FirstPersonCamera : MonoBehaviour
         m_YRotation = y;
     }
 
+    public void SetXRotation(float x)
+    {
+        m_XRotation = x;
+    }
 
 
     void Start()
