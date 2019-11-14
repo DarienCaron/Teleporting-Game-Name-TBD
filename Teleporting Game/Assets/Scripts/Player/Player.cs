@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
             PlayerTeleport = GetComponent<TeleportController>();
         }
         m_TeleportTimer = new Timer();
-        m_TeleportTimer.Init(2.0f);
+        m_TeleportTimer.Init(1.0f);
     }
 
     // Update is called once per frame

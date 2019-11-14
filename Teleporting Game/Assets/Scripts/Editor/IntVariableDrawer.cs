@@ -6,9 +6,9 @@ using System;
 using System.Linq;
 
 // Code referenced from Jason Weinmann
-// Custom property drawer for float references.
-[CustomPropertyDrawer(typeof(FloatReference))]
-public class FloatVariableDrawer : PropertyDrawer
+// Custom property drawer for int references.
+[CustomPropertyDrawer(typeof(IntReference))]
+public class IntVariableDrawer : PropertyDrawer
 {
 
     public const string ConstantName = "UseConstant";
@@ -22,7 +22,7 @@ public class FloatVariableDrawer : PropertyDrawer
         position = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), label);
 
         var rect = new Rect(position.position, Vector2.one * 30);
-        
+
         if(EditorGUI.DropdownButton(rect, GetTexture(),FocusType.Keyboard, new GUIStyle() { fixedWidth = 50f, border = new RectOffset(1,1,1,1)}))
         {
             GenericMenu menu = new GenericMenu();
@@ -34,13 +34,13 @@ public class FloatVariableDrawer : PropertyDrawer
 
         }
         position.position += Vector2.right * 15;
-        float value = property.FindPropertyRelative(ConstantValueName).floatValue;
+        int value = property.FindPropertyRelative(ConstantValueName).intValue;
 
         if(useConstant)
         {
-
-            EditorGUI.FloatField(position, value);
-            property.FindPropertyRelative(ConstantValueName).floatValue = value;
+            string newVal = EditorGUI.TextField(position, value.ToString());
+            int.TryParse(newVal, out value);
+            property.FindPropertyRelative(ConstantValueName).intValue = value;
         }
         else
         {

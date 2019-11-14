@@ -11,6 +11,28 @@ public class FloatReference
     public float ConstantValue;
     public FloatVariable Variable;
 
+
+    public FloatReference(float val, bool useConstant = true)
+    {
+        UseConstant = useConstant;
+        if (UseConstant)
+        {
+            ConstantValue = val;
+        }
+        else
+        {
+            if (Variable)
+            {
+                Variable.Value = val;
+            }
+            else
+            {
+                Variable = ScriptableObject.CreateInstance<FloatVariable>();
+                Variable.Value = val;
+            }
+        }
+    }
+
     // function to simplify what value to return. If its constant, it will return the constant variable, otherwise it returns the floatvariables value.
     public float GetValue()
     {

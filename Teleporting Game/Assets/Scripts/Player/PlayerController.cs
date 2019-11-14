@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
 
     public float GravityAccel = -10.0f;
 
+    
+
 
     [Space(45)]
 
@@ -38,11 +40,11 @@ public class PlayerController : MonoBehaviour
 
     [Header("Ground Check Values")]
 
-    public float GroundCheckStartOffsetY = 0.5f;
+    public FloatReference GroundCheckStartOffsetY = new FloatReference(0.5f);
     public float CheckForGroundRadius = 0.5f;
     public float GroundResolutionOverlap = 0.05f;
 
-    public float MinAllowedSurfaceAngle = 15.0f;
+    public IntReference MinAllowedSurfaceAngle = new IntReference(15);
 
 
 
@@ -171,11 +173,11 @@ public class PlayerController : MonoBehaviour
         float halfCapsuleHeight = m_CenterHeight - footHeight;
 
         Vector3 rayStart = transform.position;
-        rayStart.y += GroundCheckStartOffsetY;
+        rayStart.y += GroundCheckStartOffsetY.GetValue();
 
         Vector3 rayDir = Vector3.down;
 
-        float rayDist = halfCapsuleHeight + GroundCheckStartOffsetY - CheckForGroundRadius;
+        float rayDist = halfCapsuleHeight + GroundCheckStartOffsetY.GetValue() - CheckForGroundRadius;
 
         RaycastHit[] hitInfos = Physics.SphereCastAll(rayStart, CheckForGroundRadius, rayDir, rayDist + GroundHitAdjustment, m_GroundCheckMask);
 
@@ -191,7 +193,7 @@ public class PlayerController : MonoBehaviour
             // Replace the math equation below with a helper function. This is to calculate the vertical angle.
             float surfaceAngle = MathUtilities.CalculateVerticalAngle(hits.normal);
 
-            if (surfaceAngle < MinAllowedSurfaceAngle || hits.distance <= 0.0f)
+            if (surfaceAngle < MinAllowedSurfaceAngle.GetValue() || hits.distance <= 0.0f)
             {
                 continue;
             }
