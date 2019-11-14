@@ -6,13 +6,14 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Ground Variables")]
 
-    public float MovementAccelerationSpeed = 8.0f;
-    public float MaxWalkSpeed = 10.0f;
-    public float DecelerationSpeed = 10.0f;
+ 
+    public FloatReference MovementAccelerationSpeed;
+    public FloatReference MaxWalkSpeed;
+    public FloatReference DecelerationSpeed;
 
 
-    public float MaxRunSpeed = 25.0f;
-    public float RunSpeedModifier = 1.5f;
+    public FloatReference MaxRunSpeed;
+    public FloatReference RunSpeedModifier;
 
 
 
@@ -267,12 +268,12 @@ public class PlayerController : MonoBehaviour
 
             if (Vector3.Dot(velocityAlongMoveDir, moveAccel) > 0.0f)
             {
-                localVelocity = MathUtilities.LerpTo(DecelerationSpeed, localVelocity, velocityAlongMoveDir, Time.fixedDeltaTime);
+                localVelocity = MathUtilities.LerpTo(DecelerationSpeed.ConstantValue, localVelocity, velocityAlongMoveDir, Time.fixedDeltaTime);
 
             }
             else
             {
-                localVelocity = MathUtilities.LerpTo(DecelerationSpeed, localVelocity, Vector3.zero, Time.fixedDeltaTime);
+                localVelocity = MathUtilities.LerpTo(DecelerationSpeed.ConstantValue, localVelocity, Vector3.zero, Time.fixedDeltaTime);
             }
 
 
@@ -281,14 +282,14 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKey(KeyCode.LeftShift))
             {
-                moveAccel *= MovementAccelerationSpeed * RunSpeedModifier;
-                localVelocity = Vector3.ClampMagnitude(localVelocity, MaxRunSpeed);
+                moveAccel *= MovementAccelerationSpeed.GetValue() * RunSpeedModifier.GetValue();
+                localVelocity = Vector3.ClampMagnitude(localVelocity, MaxRunSpeed.ConstantValue);
                 
             }
             else
             {
-                moveAccel *= MovementAccelerationSpeed;
-                localVelocity = Vector3.ClampMagnitude(localVelocity, MaxWalkSpeed);
+                moveAccel *= MovementAccelerationSpeed.GetValue();
+                localVelocity = Vector3.ClampMagnitude(localVelocity, MaxWalkSpeed.GetValue());
                 
             }
 
@@ -299,7 +300,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            UpdateStopping(DecelerationSpeed);
+            UpdateStopping(DecelerationSpeed.ConstantValue);
         }
 
         ApplyVelocity(m_Velocity);
@@ -307,7 +308,7 @@ public class PlayerController : MonoBehaviour
         Vector3 playerCenter = transform.position;
 
 
-        playerCenter.y = MathUtilities.LerpTo(DecelerationSpeed, playerCenter.y, m_CenterHeight, Time.fixedDeltaTime);
+        playerCenter.y = MathUtilities.LerpTo(DecelerationSpeed.ConstantValue, playerCenter.y, m_CenterHeight, Time.fixedDeltaTime);
 
         transform.position = playerCenter;
 

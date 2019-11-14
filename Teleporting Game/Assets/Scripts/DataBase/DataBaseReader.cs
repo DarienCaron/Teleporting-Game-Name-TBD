@@ -71,6 +71,50 @@ public class DataBaseReader : MonoBehaviour
         return reader.GetOrdinal(col);
     }
 
+    public string GetData()
+    {
+        string conn = "URI=file:" + Application.dataPath + "/Plugins/" + DatabaseName + ".s3db";
+
+        m_databaseConn = (IDbConnection)new SqliteConnection(conn);
+        m_databaseConn.Open();
+
+        Selector.InitDatabase(m_databaseConn);
+
+
+
+
+        IDataReader reader = Selector.GetReader();
+
+
+
+
+
+        int levelIndex = GetIndexOfCol("levelname", reader);
+        string levelname = string.Empty;
+
+        while (reader.Read())
+        {
+
+
+
+
+            levelname = reader.GetString(levelIndex);
+
+
+
+
+          
+        }
+
+        reader.Close();
+        reader = null;
+        Selector.EndQuery();
+        m_databaseConn.Close();
+        m_databaseConn = null;
+
+        return levelname;
+    }
+
    
     private IDbConnection m_databaseConn;
 

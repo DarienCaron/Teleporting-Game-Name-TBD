@@ -9,8 +9,8 @@ public  class LevelManager : MonoBehaviour
    
 
     public static LevelManager Instance;
+    public SelectUniqueConditional LookupObject;
 
-    userSelect databaseSelect;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,24 +19,9 @@ public  class LevelManager : MonoBehaviour
         {
             Instance = this;
         }
-        databaseSelect = GetComponent<userSelect>();
 
 
-
-        int index = 0;
-        foreach (string s in databaseSelect.UserData)
-        {
-            if (SceneManager.GetActiveScene().name == databaseSelect.GetDataText(databaseSelect.UserData[index], "levelname:"))
-            {
-                int res;
-                int.TryParse(databaseSelect.GetDataText(databaseSelect.UserData[index], "levelid:"), out res);
-                CurrentLevelIndex = res;
-            }
-
-            index++;
-        }
-
-        CurrentLevelIndex = 0;
+        CurrentLevelIndex = 1;
     }
 
     // Update is called once per frame
@@ -51,8 +36,8 @@ public  class LevelManager : MonoBehaviour
     void ChangeLevels()
     {
         ++CurrentLevelIndex;
-        string sceneToLoad = databaseSelect.GetDataText(databaseSelect.UserData[CurrentLevelIndex], "levelname:");
-        SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
+        LookupObject.Condition = "id == " + CurrentLevelIndex.ToString();
+        SceneManager.LoadScene(GetComponent<DataBaseReader>().GetData());
     }
 
 
