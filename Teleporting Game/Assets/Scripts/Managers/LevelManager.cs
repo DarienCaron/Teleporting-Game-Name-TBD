@@ -33,7 +33,7 @@ public  class LevelManager : MonoBehaviour
         }
     }
 
-    void ChangeLevels()
+    public void ChangeLevels()
     {
         ++CurrentLevelIndex;
         LookupObject.Condition = "id == " + CurrentLevelIndex.ToString();
