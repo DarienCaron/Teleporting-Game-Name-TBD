@@ -16,11 +16,13 @@ public class DrawWithMouse : MonoBehaviour
 
 
 
-
+    [SerializeField]
     private RenderTexture m_SplatMap;
     private Material m_WallMaterial;
     public Material m_DrawMaterial;
     private RaycastHit m_Hit;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +36,8 @@ public class DrawWithMouse : MonoBehaviour
 
         m_WallMaterial = GetComponent<MeshRenderer>().material;
 
+       
+
         m_SplatMap = new RenderTexture(1024, 1024, 0, RenderTextureFormat.ARGBFloat);
         m_WallMaterial.SetTexture("_Splat", m_SplatMap);
     }
@@ -46,13 +50,27 @@ public class DrawWithMouse : MonoBehaviour
         {
             if(Physics.Raycast(Cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)), out m_Hit))
             {
-                m_DrawMaterial.SetVector("_Coordinate", new Vector4(m_Hit.textureCoord.x, m_Hit.textureCoord.y, 0, 0));
-                RenderTexture temp = RenderTexture.GetTemporary(m_SplatMap.width, m_SplatMap.height, 0, RenderTextureFormat.ARGBFloat);
-                Graphics.Blit(m_SplatMap, temp);
-                Graphics.Blit(temp, m_SplatMap, m_DrawMaterial);
-                RenderTexture.ReleaseTemporary(temp);
+
+                if (m_Hit.collider.gameObject == gameObject)
+                {
+
+
+                    m_DrawMaterial.SetVector("_Coordinate", new Vector4(m_Hit.textureCoord.x, m_Hit.textureCoord.y, 0, 0));
+
+
+
+                    RenderTexture temp = RenderTexture.GetTemporary(m_SplatMap.width, m_SplatMap.height, 0, RenderTextureFormat.ARGBFloat);
+
+                    Graphics.Blit(m_SplatMap, temp);
+                    Graphics.Blit(temp, m_SplatMap, m_DrawMaterial);
+                    RenderTexture.ReleaseTemporary(temp);
+                }
             }
         }
+
+        
+
+
     }
 
 

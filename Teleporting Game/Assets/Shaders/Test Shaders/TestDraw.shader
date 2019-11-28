@@ -17,7 +17,9 @@
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-       
+			#pragma target 3.0
+
+			#pragma multi_compile_instancing
 
             #include "UnityCG.cginc"
 
@@ -35,9 +37,14 @@
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
-			float4 _Coordinate;
+		
 			float4 _Color;
 			float _BrushSize;
+
+			UNITY_INSTANCING_BUFFER_START(Props)
+			UNITY_DEFINE_INSTANCED_PROP(float4, _Coordinate)
+			UNITY_INSTANCING_BUFFER_END(Props)
+
 
             v2f vert (appdata v)
             {
