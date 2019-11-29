@@ -75,5 +75,5 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 0, b: 0, a: 1}
-    - _Coordinate: {r: 0.8861104, g: 0.29923624, b: 0, a: 0}
+    - _Coordinate: {r: 0.011080755, g: 0.6082878, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
