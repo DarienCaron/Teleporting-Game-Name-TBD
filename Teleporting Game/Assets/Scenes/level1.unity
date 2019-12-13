@@ -800,7 +800,7 @@ MonoBehaviour:
   DrawShader: {fileID: 4800000, guid: 2bcbc42e8f1e0124189d21598ffe5342, type: 3}
   DrawSize: 75
   m_SplatMap: {fileID: 0}
-  m_DrawMaterial: {fileID: 2100000, guid: 9ce713f66f6a75c4c83e8a2f26950fa3, type: 2}
+  m_DrawMaterial: {fileID: 0}
 --- !u!64 &698014383
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2912,9 +2912,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Cam: {fileID: 963194227}
   DrawShader: {fileID: 4800000, guid: 2bcbc42e8f1e0124189d21598ffe5342, type: 3}
-  DrawSize: 35
+  DrawSize: 10
   m_SplatMap: {fileID: 0}
-  m_DrawMaterial: {fileID: 2100000, guid: 9ce713f66f6a75c4c83e8a2f26950fa3, type: 2}
+  m_DrawMaterial: {fileID: 0}
 --- !u!64 &2140353190
 MeshCollider:
   m_ObjectHideFlags: 0

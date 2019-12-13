@@ -24,11 +24,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _CrystalBump:
-        m_Texture: {fileID: 2800000, guid: 72e0436c2db4bfd448e57f2fa1d2f818, type: 3}
+        m_Texture: {fileID: 2800000, guid: acf1dd9480a58fb4d9e11d9d6c51c7f6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _CrystalTex:
-        m_Texture: {fileID: 2800000, guid: 8ee5a83054b5ad94bb071fcecab16774, type: 3}
+        m_Texture: {fileID: 2800000, guid: 611bfe3a189034c4f97c1302dc9a557a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -64,7 +64,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Splat:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 8df74f7c1151c6b4f8c8c58f3684532c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _WallBump:
