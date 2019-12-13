@@ -6,7 +6,10 @@
         _WallTex ("Wall (RGB)", 2D) = "white" {}
 
 		_CrystalColor("Color", Color) = (1,1,1,1)
-		_CrystalTex("Crystal (RGB)", 2D) = "white" {}
+		_CrystalTex1("Crystal (RGB)", 2D) = "white" {}
+		_CrystalTex2("Crystal (RGB)", 2D) = "white" {}
+		_CrystalTex3("Crystal (RGB)", 2D) = "white" {}
+
 		[PerRendererData]_Splat("Splat Map",2D) = "black" {}
         _Glossiness ("Smoothness", Range(0,1)) = 0.5
         _Metallic ("Metallic", Range(0,1)) = 0.0
@@ -31,7 +34,9 @@
 		#include "UnityStandardUtils.cginc"
 
         sampler2D _WallTex;
-		sampler2D _CrystalTex;
+		sampler2D _CrystalTex1;
+		sampler2D _CrystalTex2;
+		sampler2D _CrystalTex3;
 
 
 		sampler2D _Splat;
@@ -39,7 +44,9 @@
         struct Input
         {
             float2 uv_WallTex;
-			float2 uv_CrystalTex;
+			float2 uv_CrystalTex1;
+			float2 uv_CrystalTex2;
+			float2 uv_CrystalTex3;
 			float2 uv_Splat;
 			float2 uv_BumpMap;
         };
@@ -64,8 +71,21 @@
 
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
-			half amount = tex2Dlod(_Splat, float4(IN.uv_Splat, 0, 0)).r;
-			fixed4 c = lerp(tex2D(_WallTex, IN.uv_WallTex) * _WallColor, tex2D(_CrystalTex, IN.uv_CrystalTex) * _CrystalColor, amount);
+			float3 Mask = tex2D(_Splat, IN.uv_Splat);
+
+			float cMask = min(1.0, Mask.r + Mask.g + Mask.b);
+
+			float4 first = tex2D(_CrystalTex1, IN.uv_CrystalTex1);
+			float4 second = tex2D(_CrystalTex2, IN.uv_CrystalTex2);
+			float4 third = tex2D(_CrystalTex3, IN.uv_CrystalTex3);
+
+
+
+			fixed4 c = tex2D(_WallTex, IN.uv_WallTex) * _WallColor;
+
+			c.rgb = c.rgb * (1 - cMask) + (first * Mask.r) + (second * Mask.g) + (third * Mask.b);
+
+			
 
             o.Albedo = c.rgb;
             // Metallic and smoothness come from slider variables
@@ -73,7 +93,7 @@
             o.Smoothness = _Glossiness;
             o.Alpha = c.a;
 			
-			o.Normal = lerp(UnpackScaleNormal(tex2D(_BumpMap, IN.uv_BumpMap),_BumpMapPower), UnpackScaleNormal(tex2D(_CrystalBump, IN.uv_BumpMap), _BumpMapPower2), amount);
+			o.Normal = lerp(UnpackScaleNormal(tex2D(_BumpMap, IN.uv_BumpMap),_BumpMapPower), UnpackScaleNormal(tex2D(_CrystalBump, IN.uv_BumpMap), _BumpMapPower2), Mask.r);
         }
         ENDCG
     }

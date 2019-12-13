@@ -45,6 +45,22 @@ public class DrawWithMouse : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
+        if(Input.GetKey(KeyCode.L))
+        {
+            m_DrawMaterial.SetVector("_Color", Color.red);
+        }
+        if (Input.GetKey(KeyCode.M))
+        {
+            m_DrawMaterial.SetVector("_Color", Color.blue);
+        }
+        if (Input.GetKey(KeyCode.K))
+        {
+            m_DrawMaterial.SetVector("_Color", Color.green);
+        }
+
+
         m_DrawMaterial.SetFloat("_BrushSize", DrawSize);
         if (Input.GetKey(KeyCode.Mouse0))
         {
