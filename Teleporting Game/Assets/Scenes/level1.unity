@@ -1850,6 +1850,32 @@ MonoBehaviour:
     - {fileID: 8766736853929777729, guid: 314d10803b1ec48449155309182a7f36, type: 3}
     - {fileID: 2349901877346834055, guid: 6f63760c7b8e64042ac76daae555a62a, type: 3}
     - {fileID: 2597905046540665116, guid: 448b9ac841ed2d6409cf6794c91d4c54, type: 3}
+  TeleporterInventory:
+    reorderableList:
+      canAdd: 1
+      canRemove: 1
+      draggable: 1
+      expandable: 1
+      multipleSelection: 1
+      isExpanded: 1
+      label:
+        m_Text: Keys
+        m_Image: {fileID: 0}
+        m_Tooltip: 
+      headerHeight: 18
+      footerHeight: 13
+      slideEasing: 0.15
+      verticalSpacing: 2
+      showDefaultBackground: 1
+      elementDisplayType: 0
+      elementNameProperty: 
+      elementNameOverride: 
+      elementIcon: {fileID: 0}
+    reqReferences: {fileID: 0}
+    isExpanded: 1
+    _keyValues: 010000000000000002000000
+    _keys: 010000000000000002000000
+    _values: 020000000300000001000000
 --- !u!1 &1639200650
 GameObject:
   m_ObjectHideFlags: 0

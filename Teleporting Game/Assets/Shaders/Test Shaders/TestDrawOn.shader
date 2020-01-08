@@ -15,7 +15,10 @@
         _Metallic ("Metallic", Range(0,1)) = 0.0
 
 		_BumpMap("Normal Map", 2D) = "bump" {}
-		_CrystalBump("Normal Map", 2D) = "bump" {}
+		_NormalMap1("Crystal Normal 1", 2D) = "bump" {}
+		_NormalMap2("Crystal Normal 2", 2D) = "bump" {}
+		_NormalMap3("Crystal Normal 3", 2D) = "bump" {}
+
 
 		_BumpMapPower("Normal Map Pow", Range(0,2)) = 0.5
 		_BumpMapPower2("Normal Map Pow 2", Range(0,2)) = 0.5
@@ -30,13 +33,17 @@
         #pragma surface surf Standard fullforwardshadows
 
         // Use shader model 3.0 target, to get nicer looking lighting
-        #pragma target 3.0
+		#pragma target 3.5
 		#include "UnityStandardUtils.cginc"
 
         sampler2D _WallTex;
 		sampler2D _CrystalTex1;
 		sampler2D _CrystalTex2;
 		sampler2D _CrystalTex3;
+
+		sampler2D _NormalMap1;
+		sampler2D _NormalMap2;
+		sampler2D _NormalMap3;
 
 
 		sampler2D _Splat;
@@ -48,7 +55,11 @@
 			float2 uv_CrystalTex2;
 			float2 uv_CrystalTex3;
 			float2 uv_Splat;
+
 			float2 uv_BumpMap;
+			float2 uv_NormalMap1;
+			float2 uv_NormalMap2;
+			float2 uv_NormalMap3;
         };
 
         half _Glossiness;
@@ -92,8 +103,17 @@
             o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;
             o.Alpha = c.a;
+
+
+			fixed3 norm = UnpackScaleNormal(tex2D(_BumpMap, IN.uv_BumpMap), _BumpMapPower);
+
+			float3 firstnormal = UnpackScaleNormal(tex2D(_NormalMap1, IN.uv_NormalMap1), _BumpMapPower);
+			float3 Secondnormal = UnpackScaleNormal(tex2D(_NormalMap2, IN.uv_NormalMap2), _BumpMapPower);
+			float3 Thirdnormal = UnpackScaleNormal(tex2D(_NormalMap3, IN.uv_NormalMap3), _BumpMapPower);
+
+
 			
-			o.Normal = lerp(UnpackScaleNormal(tex2D(_BumpMap, IN.uv_BumpMap),_BumpMapPower), UnpackScaleNormal(tex2D(_CrystalBump, IN.uv_BumpMap), _BumpMapPower2), Mask.r);
+			o.Normal = norm * (1 - cMask) + (firstnormal * Mask.r) + (Secondnormal * Mask.g) + (Thirdnormal * Mask.b);
         }
         ENDCG
     }

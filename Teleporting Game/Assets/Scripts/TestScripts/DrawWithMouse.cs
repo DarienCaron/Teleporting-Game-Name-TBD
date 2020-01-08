@@ -59,7 +59,10 @@ public class DrawWithMouse : MonoBehaviour
         {
             m_DrawMaterial.SetVector("_Color", Color.green);
         }
-
+        if(Input.GetKey(KeyCode.Backspace))
+        {
+            m_DrawMaterial.SetVector("_Color", Color.black);
+        }
 
         m_DrawMaterial.SetFloat("_BrushSize", DrawSize);
         if (Input.GetKey(KeyCode.Mouse0))
