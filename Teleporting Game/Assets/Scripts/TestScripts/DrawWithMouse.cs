@@ -23,6 +23,13 @@ public class DrawWithMouse : MonoBehaviour
     private RaycastHit m_Hit;
 
 
+    // TODO Integrate this into our controller 
+    public EraseDraw eraser;
+
+
+    private bool IsErasing = false;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +47,11 @@ public class DrawWithMouse : MonoBehaviour
 
         m_SplatMap = new RenderTexture(1024, 1024, 0, RenderTextureFormat.ARGBFloat);
         m_WallMaterial.SetTexture("_Splat", m_SplatMap);
+
+        if(eraser == null)
+        {
+            eraser = GetComponent<EraseDraw>();
+        }
     }
 
     // Update is called once per frame
@@ -61,7 +73,7 @@ public class DrawWithMouse : MonoBehaviour
         }
         if(Input.GetKey(KeyCode.Backspace))
         {
-            m_DrawMaterial.SetVector("_Color", Color.black);
+            IsErasing = !IsErasing;
         }
 
         m_DrawMaterial.SetFloat("_BrushSize", DrawSize);
@@ -70,19 +82,26 @@ public class DrawWithMouse : MonoBehaviour
             if(Physics.Raycast(Cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)), out m_Hit))
             {
 
-                if (m_Hit.collider.gameObject == gameObject)
+                if (IsErasing == false)
                 {
+                    if (m_Hit.collider.gameObject == gameObject)
+                    {
 
 
-                    m_DrawMaterial.SetVector("_Coordinate", new Vector4(m_Hit.textureCoord.x, m_Hit.textureCoord.y, 0, 0));
+                        m_DrawMaterial.SetVector("_Coordinate", new Vector4(m_Hit.textureCoord.x, m_Hit.textureCoord.y, 0, 0));
 
 
 
-                    RenderTexture temp = RenderTexture.GetTemporary(m_SplatMap.width, m_SplatMap.height, 0, RenderTextureFormat.ARGBFloat);
+                        RenderTexture temp = RenderTexture.GetTemporary(m_SplatMap.width, m_SplatMap.height, 0, RenderTextureFormat.ARGBFloat);
 
-                    Graphics.Blit(m_SplatMap, temp);
-                    Graphics.Blit(temp, m_SplatMap, m_DrawMaterial);
-                    RenderTexture.ReleaseTemporary(temp);
+                        Graphics.Blit(m_SplatMap, temp);
+                        Graphics.Blit(temp, m_SplatMap, m_DrawMaterial);
+                        RenderTexture.ReleaseTemporary(temp);
+                    }
+                }
+                else
+                {
+                    eraser.Erase(m_Hit);
                 }
             }
         }
